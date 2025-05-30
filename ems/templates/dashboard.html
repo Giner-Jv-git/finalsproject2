@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+<div class="mb-6">
+    <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <!-- Total Employees Card -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-blue-100 text-blue-600 mr-4">
+                <i class="fas fa-users text-xl"></i>
+            </div>
+            <div>
+                <p class="text-gray-500">Total Employees</p>
+                <h3 class="text-2xl font-bold">{{ total_employees }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Employees Card -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-green-100 text-green-600 mr-4">
+                <i class="fas fa-user-check text-xl"></i>
+            </div>
+            <div>
+                <p class="text-gray-500">Active Employees</p>
+                <h3 class="text-2xl font-bold">{{ active_employees }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Departments Card -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-purple-100 text-purple-600 mr-4">
+                <i class="fas fa-building text-xl"></i>
+            </div>
+            <div>
+                <p class="text-gray-500">Departments</p>
+                <h3 class="text-2xl font-bold">{{ departments.count }}</h3>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Leaves Card -->
+    <div class="bg-white rounded-lg shadow p-6">
+        <div class="flex items-center">
+            <div class="p-3 rounded-full bg-yellow-100 text-yellow-600 mr-4">
+                <i class="fas fa-calendar-minus text-xl"></i>
+            </div>
+            <div>
+                <p class="text-gray-500">Pending Leaves</p>
+                <h3 class="text-2xl font-bold">{{ pending_leaves }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+    <!-- Recent Employees -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">Recent Employees</h3>
+        </div>
+        <div class="divide-y divide-gray-200">
+            {% for employee in recent_employees %}
+            <div class="px-6 py-4 flex items-center">
+                <img src="{% if employee.profile_picture %}{{ employee.profile_picture.url }}{% else %}https://ui-avatars.com/api/?name={{ employee.first_name }}+{{ employee.last_name }}&background=random{% endif %}" 
+                     alt="{{ employee.full_name }}" class="w-10 h-10 rounded-full mr-4">
+                <div>
+                    <h4 class="font-medium">{{ employee.full_name }}</h4>
+                    <p class="text-sm text-gray-500">{{ employee.position.title }} in {{ employee.department.name }}</p>
+                </div>
+                <div class="ml-auto text-sm text-gray-500">
+                    {{ employee.hire_date|date:"M d, Y" }}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="px-6 py-4 bg-gray-50 text-right">
+            <a href="{% url 'employee_list' %}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All</a>
+        </div>
+    </div>
+
+    <!-- Departments Summary -->
+    <div class="bg-white rounded-lg shadow overflow-hidden">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h3 class="text-lg font-medium text-gray-900">Departments</h3>
+        </div>
+        <div class="divide-y divide-gray-200">
+            {% for department in departments %}
+            <div class="px-6 py-4 flex justify-between items-center">
+                <div>
+                    <h4 class="font-medium">{{ department.name }}</h4>
+                    <p class="text-sm text-gray-500 truncate">{{ department.description|truncatechars:50 }}</p>
+                </div>
+                <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded">
+                    {{ department.employee_count }} employees
+                </span>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="px-6 py-4 bg-gray-50 text-right">
+            <a href="{% url 'department_list' %}" class="text-blue-600 hover:text-blue-800 text-sm font-medium">View All</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
