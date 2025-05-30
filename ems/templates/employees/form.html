@@ -18,10 +18,18 @@
                     <h2 class="text-lg font-semibold text-gray-700">Personal Information</h2>
                     
                     <div>
-                        <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700">Full Name</label>
-                        {{ form.name|add_class:"form-input" }}
-                        {% if form.name.errors %}
-                        <p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+                        <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700">First Name</label>
+                        {{ form.first_name|add_class:"form-input" }}
+                        {% if form.first_name.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.first_name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700">Last Name</label>
+                        {{ form.last_name|add_class:"form-input" }}
+                        {% if form.last_name.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.last_name.errors.0 }}</p>
                         {% endif %}
                     </div>
 
