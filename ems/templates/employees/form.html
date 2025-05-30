@@ -1,0 +1,107 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">{{ title }}</h1>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-6">
+            {% csrf_token %}
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Personal Information -->
+                <div class="space-y-4">
+                    <h2 class="text-lg font-semibold text-gray-700">Personal Information</h2>
+                    
+                    <div>
+                        <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        {{ form.name|add_class:"form-input" }}
+                        {% if form.name.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.name.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700">Email</label>
+                        {{ form.email|add_class:"form-input" }}
+                        {% if form.email.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.email.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.phone.id_for_label }}" class="block text-sm font-medium text-gray-700">Phone</label>
+                        {{ form.phone|add_class:"form-input" }}
+                        {% if form.phone.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.phone.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.photo.id_for_label }}" class="block text-sm font-medium text-gray-700">Photo</label>
+                        {{ form.photo|add_class:"form-file" }}
+                        {% if form.photo.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.photo.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Employment Information -->
+                <div class="space-y-4">
+                    <h2 class="text-lg font-semibold text-gray-700">Employment Information</h2>
+                    
+                    <div>
+                        <label for="{{ form.department.id_for_label }}" class="block text-sm font-medium text-gray-700">Department</label>
+                        {{ form.department|add_class:"form-select" }}
+                        {% if form.department.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.department.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.position.id_for_label }}" class="block text-sm font-medium text-gray-700">Position</label>
+                        {{ form.position|add_class:"form-select" }}
+                        {% if form.position.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.position.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.hire_date.id_for_label }}" class="block text-sm font-medium text-gray-700">Hire Date</label>
+                        {{ form.hire_date|add_class:"form-input" }}
+                        {% if form.hire_date.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.hire_date.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <label for="{{ form.salary.id_for_label }}" class="block text-sm font-medium text-gray-700">Salary</label>
+                        {{ form.salary|add_class:"form-input" }}
+                        {% if form.salary.errors %}
+                        <p class="mt-1 text-sm text-red-600">{{ form.salary.errors.0 }}</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="flex items-center">
+                        {{ form.is_active|add_class:"form-checkbox" }}
+                        <label for="{{ form.is_active.id_for_label }}" class="ml-2 block text-sm text-gray-700">Active</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex justify-end space-x-4 pt-6">
+                <a href="{% url 'employee_list' %}" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Cancel
+                </a>
+                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                    Save Employee
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

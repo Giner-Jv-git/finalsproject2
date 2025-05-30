@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Employee Management System | {% block title %}{% endblock %}</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    {% load static %}
+    <link href="{% static 'output.css' %}" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body class="bg-gray-100">
@@ -76,7 +77,7 @@
         <!-- Footer -->
         <footer class="bg-gray-800 text-white py-4">
             <div class="container mx-auto px-4 text-center">
-                <p>&copy; {% now "Y" %} Employee Management System. All rights reserved.</p>
+                <p>&copy; {% now "Y" %} Employee Management System. Group 1.</p>
             </div>
         </footer>
     </div>

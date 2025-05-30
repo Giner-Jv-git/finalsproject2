@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block title %}Request Leave{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white rounded-lg shadow-md p-6">
+        <h1 class="text-2xl font-bold text-gray-800 mb-6">Request Leave</h1>
+
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            <div>
+                <label for="{{ form.leave_type.id_for_label }}" class="block text-sm font-medium text-gray-700">Leave Type</label>
+                {{ form.leave_type|add_class:"form-select" }}
+                {% if form.leave_type.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.leave_type.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="{{ form.start_date.id_for_label }}" class="block text-sm font-medium text-gray-700">Start Date</label>
+                    {{ form.start_date|add_class:"form-input" }}
+                    {% if form.start_date.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.start_date.errors.0 }}</p>
+                    {% endif %}
+                </div>
+
+                <div>
+                    <label for="{{ form.end_date.id_for_label }}" class="block text-sm font-medium text-gray-700">End Date</label>
+                    {{ form.end_date|add_class:"form-input" }}
+                    {% if form.end_date.errors %}
+                    <p class="mt-1 text-sm text-red-600">{{ form.end_date.errors.0 }}</p>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div>
+                <label for="{{ form.reason.id_for_label }}" class="block text-sm font-medium text-gray-700">Reason</label>
+                {{ form.reason|add_class:"form-textarea" }}
+                {% if form.reason.errors %}
+                <p class="mt-1 text-sm text-red-600">{{ form.reason.errors.0 }}</p>
+                {% endif %}
+            </div>
+
+            <div class="flex justify-end space-x-4">
+                <a href="{% url 'leave_list' %}" class="px-4 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-50">
+                    Cancel
+                </a>
+                <button type="submit" class="px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700">
+                    Submit Request
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
